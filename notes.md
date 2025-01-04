@@ -9,3 +9,8 @@ create routes and pages
 ![alt text](image.png) is done in app.js
 
 ![alt text](image-1.png) is done in index.js
+
+linking buttons to the pages ie nav bar
+using <link>
+
+## step 3
