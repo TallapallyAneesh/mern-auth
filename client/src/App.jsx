@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
+import Dot from "./components/Dot";
 function App() {
   return (
     <div>
@@ -20,6 +21,7 @@ function App() {
           <Route path={"/signin"} element={<SignIn />} />
           <Route path={"/about"} element={<About />} />
           <Route path={"/profile"} element={<Profile />} />
+          <Route path={"/dot"} element={<Dot />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>
