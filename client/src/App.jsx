@@ -5,6 +5,8 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
+import Dashboard from "./pages/Dashboard";
+import Projects from "./pages/Projects";
 function App() {
   return (
     <div>
@@ -12,6 +14,8 @@ function App() {
         <Header />
         <Routes>
           <Route path={"/"} element={<Home />} />
+          <Route path={"/projects"} element={<Projects />} />
+          <Route path={"/dashboard"} element={<Dashboard />} />
           <Route path={"/signup"} element={<SignUp />} />
           <Route path={"/signin"} element={<SignIn />} />
           <Route path={"/about"} element={<About />} />
