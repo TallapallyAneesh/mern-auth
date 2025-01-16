@@ -1,12 +1,12 @@
 function Dot() {
   return (
     <svg
-      width="1342"
+      width="1450"
       height="839"
       viewBox="0 0 1342 839"
-      fill="none"
+      fill=""
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute z-[-1]"
+      className="absolute z-[-1] w-full h-full "
     >
       <g clip-path="url(#clip0_118_1913)">
         <circle cx="1.5" cy="1.5" r="1.5" fill="#D2D6DB" />

@@ -85,10 +85,6 @@ select {
 }
 
 /* 9. Add a default focus style */
-:focus {
-  outline: 2px dashed blue;
-  outline-offset: 2px;
-}
 
 /* 10. Reset table styles */
 table {
