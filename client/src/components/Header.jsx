@@ -16,9 +16,15 @@ function Header() {
         </div>
         <div className="hidden md:flex items-center gap-4 ">
           <ul className="flex gap-4 mr-4">
-            <li>Home</li>
-            <li>About</li>
-            <li>Projects</li>
+            <Link to="/">
+              <li>Home</li>
+            </Link>
+            <Link to="/about">
+              <li>About</li>
+            </Link>
+            <Link to="/projects">
+              <li>Projects</li>
+            </Link>
           </ul>
 
           <IoSearch className="text-3xl lg:hidden " />
@@ -52,7 +58,7 @@ function Header() {
               fill="#FFFFFE"
             />
           </svg> */}
-          <Link to="">
+          <Link to="/signin">
             <button className="p-3 bg-[#6246EA] rounded-md text-white">
               SignUp/Login
             </button>

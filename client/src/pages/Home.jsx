@@ -21,7 +21,7 @@ function Home() {
               type="text"
               id="email"
               placeholder="Enter your email here..."
-              className="py-5 pl-5 pr-52 bg-white mr-4 outline-none rounded-md text-[#6246ea] placeholder:text-[#6246ea] border-2 border-[#6246ea]"
+              className=" py-5 px-[23px] w-[70%] rounded-md outline-none border-2  border-[#6246EA] mr-2 text-[#6246EA]  placeholder:text-[#6246EA] "
             />
             <button className="py-5 px-[23px] bg-[#6246EA] text-white rounded-md">
               Subscribe
