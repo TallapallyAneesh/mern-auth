@@ -1,12 +1,20 @@
 import express from "express";
-import connectDB from "../database/database.js";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import "dotenv/config";
+
+import connectDB from "../config/database.js";
+
 import userRoutes from "../routes/userRoutes.js";
 import authRoutes from "../routes/authRoutes.js";
 
 const app = express();
-app.use(express.json());
 const PORT = process.env.PORT || 5000;
+
+//common middlewares
+app.use(express.json());
+app.use(cors({ credentials: true }));
+app.use(cookieParser());
 
 connectDB()
   .then(() => {

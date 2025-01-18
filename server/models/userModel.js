@@ -22,7 +22,28 @@ const UserSchema = mongoose.Schema(
       trim: true,
       minlength: 6,
     },
+    verifyOtp: {
+      type: String,
+      default: "",
+    },
+    verifyOtpExpires: {
+      type: Number,
+      default: 0,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    resetOtp: {
+      type: String, //why it is string because we are going to send otp to user email to reset
+      default: "",
+    },
+    resetOtpExpires: {
+      type: Number,
+      default: 0,
+    },
   },
+
   { timestamps: true }
 );
 export default mongoose.model("User", UserSchema);
