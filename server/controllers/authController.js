@@ -6,6 +6,8 @@ import transporter from "../config/nodemailer.js";
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
+
+  // Check for missing fields
   if (!username || !email || !password) {
     return res.status(400).json({
       message: "All fields are required",
@@ -13,6 +15,7 @@ export const signup = async (req, res) => {
   }
 
   try {
+    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
@@ -20,41 +23,55 @@ export const signup = async (req, res) => {
       });
     }
 
+    // Hash the password
     const hashPassword = await bcrypt.hash(password, 10);
 
+    // Create and save the new user
     const newUser = new User({
       username,
       email,
       password: hashPassword,
     });
     await newUser.save();
+
+    // Generate JWT token
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
+
+    // Set cookie for the token
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
-    // const mailOptions = {
-    //   from: process.env.SENDER_EMAIL,
-    //   to: email,
-    //   subject: `Welcome to aneesh.Blog. You have have registered with ${email} `,
-    // };
-    // try {
-    //   await transporter.sendMail(mailOptions);
-    // } catch (error) {
-    //   return res.status(400).json({
-    //     message: error.message,
-    //   });
-    // }
-    return res.json({
-      message: "Signup success! Please signin",
+
+    // Email content
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: `Welcome to aneesh.Blog`,
+      text: `You have successfully registered with ${email}. Enjoy blogging!`,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        console.error("Error occurred:", err);
+      } else {
+        console.log("Email sent successfully:", info.response);
+      }
+    });
+    // Respond with success message
+    return res.status(201).json({
+      message: "Signup success! Please sign in.",
     });
   } catch (err) {
-    res.status(400).json({
-      message: err.message,
+    console.error("Signup Error:", err); // Log the error
+    return res.status(500).json({
+      message: "An error occurred during signup.",
+      error: err.message,
     });
   }
 };
@@ -114,3 +131,112 @@ export const signout = (req, res) => {
     });
   }
 };
+
+export const sendVerifyOtp = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = User.findById(userId);
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    if (user.isVerified) {
+      return res.status(400).json({
+        message: "User is already verified",
+      });
+    }
+    const otp = String(Math.floor(100000 + Math.random() * 900000));
+    user.verifyOtp = otp;
+    user.verifyOtpExpires = Date.now() + 600000;
+    await user.save();
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: user.email,
+      subject: `OTP to verify your email`,
+      text: `OTP to verify your email is ${otp}`,
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        console.error("Error occurred:", err);
+      } else {
+        console.log("Email sent successfully:", info.response);
+      }
+    });
+    return res.status(200).json({
+      message: "OTP sent successfully",
+    });
+  } catch (error) {
+    console.error("Send OTP Error:", error);
+  }
+};
+
+export const verifyOtp = async (req, res) => {
+  const { userId, otp } = req.body;
+  if (!userId || !otp) {
+    return res.status(400).json({
+      message: "All fields are required",
+    });
+  }
+
+  try {
+    const user = User.findById(userId);
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    if (user.verifyOtp !== otp || user.verifyOtp === "") {
+      return res.status(400).json({
+        message: "Invalid OTP",
+      });
+    }
+    if (user.verifyOtpExpires < Date.now()) {
+      return res.status(400).json({
+        message: "OTP expired",
+      });
+    }
+    user.isVerified = true;
+    user.verifyOtp = "";
+    user.verifyOtpExpires = 0;
+    await user.save();
+    return res.status(200).json({
+      message: "Email verified successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    console.log(`Error:${error.message}`);
+  }
+};
+export const sendResetOtp = async (req, res) => {
+  const { userId } = req.body;
+  const user = User.findById(userId);
+  if (!user) {
+    return res.status(400).json({
+      message: "User not found",
+    });
+  }
+  try {
+    const otp = String(Math.floor(100000 + Math.random() * 900000));
+    user.resetOtp = otp;
+    user.resetOtpExpires = Date.now() + 600000;
+    await user.save();
+    const mailOption = {
+      from: process.env.SENDER_EMAIL,
+      to: user.email,
+      subject: `OTP to reset your password`,
+      text: `OTP to reset your password is ${otp}`,
+    };
+    transporter.sendMail(mailOption, function (err, info) {
+      if (err) {
+        console.error("Error occurred:", err);
+      } else {
+        console.log("Email sent successfully:", info.response);
+      }
+    });
+  } catch (error) {
+    console.error("Send OTP Error:", error);
+  }
+};
+
+export const resetPassword = async (req, res) => {};
