@@ -58,7 +58,7 @@ function Header() {
               fill="#FFFFFE"
             />
           </svg> */}
-          <Link to="/signin">
+          <Link to="/signup">
             <button className="p-3 bg-[#6246EA] rounded-md text-white">
               SignUp/Login
             </button>
