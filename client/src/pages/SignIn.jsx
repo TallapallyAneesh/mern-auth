@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { signIn } from "../features/users/userSlice";
 
 function SignUp() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
 
   const { email, password } = formData;
@@ -19,6 +22,11 @@ function SignUp() {
         email,
         password,
       });
+      if (data.success == false) {
+        return toast.error(data.message);
+      }
+      console.log(data);
+      dispatch(signIn(data));
       toast.success(data.message);
       navigate("/");
     } catch (error) {
