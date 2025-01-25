@@ -7,7 +7,7 @@ function SignUp() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
 
-  const { username, email, password } = formData;
+  const { email, password } = formData;
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -15,13 +15,12 @@ function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/auth/signup", {
-        username,
+      const { data } = await axios.post("/api/auth/signin", {
         email,
         password,
       });
       toast.success(data.message);
-      navigate("/signin");
+      navigate("/");
     } catch (error) {
       console.log("Error occurred:", error);
       toast.error(error.response.data.message);
@@ -46,18 +45,6 @@ function SignUp() {
             className="flex flex-col gap-4 text-[#6246EA]  "
           >
             <div className="flex flex-col gap-2">
-              <label className="font-semibold" htmlFor="username ">
-                Username
-              </label>
-              <input
-                className=" outline-none border-2  bg-gray-100   p-2 rounded-md"
-                type="text"
-                id="username"
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
               <label className="font-semibold" htmlFor="email">
                 Email
               </label>
@@ -80,15 +67,15 @@ function SignUp() {
               />
             </div>
             <button className="bg-[#6246EA] text-white text-center p-2 rounded-md">
-              Sign Up
+              Sign In
             </button>
           </form>
 
           <div className="text-[#C0C0C0] mt-3">
-            Have an account?
-            <Link to="/signin">
+            Dont have an account?
+            <Link to="/signup">
               <span className="ml-3 text-[#6246EA] cursor-pointer">
-                Sign In
+                Sign Up
               </span>
             </Link>
           </div>
