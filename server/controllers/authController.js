@@ -105,6 +105,7 @@ export const signin = async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 24 * 60 * 60 * 1000,
     });
+
     res.json({
       user: user,
       message: "Signin success",
