@@ -133,7 +133,48 @@ export const signout = (req, res) => {
     });
   }
 };
-
+export const google = async(req,res)=>{
+  const {name,email,photoUrl}=req.body;
+  try {
+    const user = await User.findOne({email});
+if(user){
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  return res.json({
+    user: user,
+    message: "Signin success",
+    });
+  } else {
+    const password = Math.random().toString(36).slice(-8);
+    const hashPassword = await bcrypt.hash(password, 10);
+    const newUser = {
+      username: name.toLowerCase().split(" ").join('')+ Math.random().toString(9).slice(-4),
+      email,
+      password: hashPassword,
+      photoUrl,
+    }
+    const user = new User(newUser);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  return res.json({
+    user: user,
+    message: "Signin success",
+  });
+  }
+}catch (error) {
+  console.log(error)
+}
+  } 
 export const sendVerifyOtp = async (req, res) => {
   try {
     const { userId } = req.body;

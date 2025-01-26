@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import GoogleAuth from "../components/GoogleAuth";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -83,6 +84,7 @@ function SignUp() {
               Sign Up
             </button>
           </form>
+          <GoogleAuth />
 
           <div className="text-[#C0C0C0] mt-3">
             Have an account?

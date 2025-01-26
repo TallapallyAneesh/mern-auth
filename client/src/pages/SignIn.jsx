@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { signIn } from "../features/users/userSlice";
+import  GoogleAuth from "../components/GoogleAuth";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -25,7 +26,6 @@ function SignUp() {
       if (data.success == false) {
         return toast.error(data.message);
       }
-      console.log(data);
       dispatch(signIn(data));
       toast.success(data.message);
       navigate("/");
@@ -78,6 +78,7 @@ function SignUp() {
               Sign In
             </button>
           </form>
+          <GoogleAuth />
 
           <div className="text-[#C0C0C0] mt-3">
             Dont have an account?

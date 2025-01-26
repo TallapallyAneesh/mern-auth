@@ -7,12 +7,14 @@ import {
   verifyEmail,
   sendResetOtp,
   resetPassword,
+  google,
 } from "../controllers/authController.js";
 import { requireSignin } from "../middlewares/UserAuth.js";
 const router = express.Router();
 router.post("/signup", signup);
 router.post("/signin", signin);
 router.get("/signout", signout);
+router.post("/google",google);
 router.get("/send-verify-otp", requireSignin, sendVerifyOtp);
 router.get("/verify-email", requireSignin, verifyEmail);
 router.post("/send-reset-otp", sendResetOtp);
