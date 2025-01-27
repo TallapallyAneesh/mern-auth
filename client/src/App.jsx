@@ -14,11 +14,11 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./components/Footer";
 function App() {
   return (
-    <div>
+    <div className="App ">
       <ToastContainer />
 
       <BrowserRouter>
-        <Header />
+        <Header/>
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/projects"} element={<Projects />} />
