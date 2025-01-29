@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaMoon, FaSun } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import DropDown from "./DropDown";
+import { useDispatch } from "react-redux";
+import { toggleTheme } from "../features/theme/themeSlice";
+
 
 
 
 function Header() {
+
   const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme.theme);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -23,7 +29,7 @@ function Header() {
           <FaBars className="text-2xl cursor-pointer" />
         </div>
         <div className="hidden md:flex items-center gap-4 ">
-          <ul className="flex gap-4 mr-4">
+          <ul className="flex items-center gap-4 mr-4">
             <Link to="/">
               <li>Home</li>
             </Link>
@@ -33,6 +39,9 @@ function Header() {
             <Link to="/projects">
               <li>Projects</li>
             </Link>
+            <li className="border-2 px-4 py-2 rounded-full border-[#6246EA] bg-[#6246EA]"><button className="flex items-center  " onClick={()=>{
+              console.log(theme);
+              dispatch(toggleTheme())}}>{theme==='dark'?<FaSun />:<FaMoon className=" text-white" />}</button></li>
           </ul>
 
           <IoSearch className="text-3xl lg:hidden " />

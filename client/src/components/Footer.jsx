@@ -1,8 +1,10 @@
 import { RiTwitterXFill } from "react-icons/ri";
 import { FiGithub, FiInstagram } from "react-icons/fi";
+import { useSelector } from "react-redux";
 function Footer() {
+  const theme = useSelector((state) => state.theme.theme);
   return (
-    <footer className="bg-[#C0C0C0] py-4">
+    <footer className="bg-[#C0C0C0] dark:bg-[#3d2c97]  py-4">
       <div className="mx-auto container flex justify-between p-2 pb-7 border-b-2 border-[grey]   ">
         <div className="flex flex-col gap-1 ">
           <div>
