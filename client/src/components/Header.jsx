@@ -39,9 +39,9 @@ function Header() {
             <Link to="/projects">
               <li>Projects</li>
             </Link>
-            <li className="border-2 px-4 py-2 rounded-full border-[#6246EA] bg-[#6246EA]"><button className="flex items-center  " onClick={()=>{
+            <li onClick={()=>{
               console.log(theme);
-              dispatch(toggleTheme())}}>{theme==='dark'?<FaSun />:<FaMoon className=" text-white" />}</button></li>
+              dispatch(toggleTheme())}} className="border-2 px-4 py-2 cursor-pointer rounded-full border-[#6246EA] bg-[#6246EA]"><button className="flex items-center  ">{theme==='dark'?<FaSun />:<FaMoon className=" text-white" />}</button></li>
           </ul>
 
           <IoSearch className="text-3xl lg:hidden " />

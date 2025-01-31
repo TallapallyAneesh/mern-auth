@@ -3,10 +3,10 @@ import CodingImage from "../components/CodingImage";
 import ScrollIcon from "../components/ScrollIcon";
 function Home() {
   return (
-    <div className="home w-full h-screen  p-2 ">
-      <div className="container mx-auto mt-[150px] flex justify-between items-center ">
+    <div className="home  h-full sm:h-screen  p-2 ">
+      <div className=" max-w-full  mx-auto sm:mt-[150px] flex justify-between items-center  border border-red-400  ">
         <div className="hero_info  w-6/12 ">
-          <div className="hero_info_title text-6xl font-semibold leading-[70px] mb-7">
+          <div className="hero_info_title text-4xl  text-center sm:text-6xl sm:text-left font-semibold sm:leading-[70px] mb-7">
             Hi, I'm <span className="text-[#6246EA]">Aneesh</span>
             <br />
             I'm a MERN Stack Developer
