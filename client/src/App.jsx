@@ -20,7 +20,7 @@ function App() {
       <ToastContainer />
 
       <BrowserRouter>
-       
+       <Header />
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/home"} element={<Home2 />} />
@@ -38,7 +38,7 @@ function App() {
           <Route path="*" element={<div>404</div>} />
           
         </Routes>
-
+    <Footer />
       </BrowserRouter>
     </div>
   );
