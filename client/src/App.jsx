@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import Home2 from "./pages/Home2";
+import DashProfile from "./components/DashProfile";
 function App() {
   return (
     <div className="App ">
@@ -32,8 +33,7 @@ function App() {
 <Route path={"/dashboard"} element={<Dashboard />} />
 </Route>
           <Route path={"/about"} element={<About />} />
-          {/* <Route path={"/profile"} element={<Profile />} /> */}
-          <Route path={"/dot"} element={<Dot />} />
+           <Route path={"/profile"} element={<DashProfile />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />
           <Route path="*" element={<div>404</div>} />
           

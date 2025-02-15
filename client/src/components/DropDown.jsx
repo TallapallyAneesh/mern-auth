@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 function DropDown() {
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -28,7 +29,9 @@ function DropDown() {
         </div>
         <div className="">
             <ul className="p-4 text-md ">
-            <li className=" p-2 cursor-pointer hover:bg-[#412ea3c4]">Profile</li>
+            <Link to="/profile">
+                <li className=" p-2 cursor-pointer hover:bg-[#412ea3c4]">Profile</li>
+            </Link>
             <li className="p-2 cursor-pointer hover:bg-[#412ea3c4]">Settings</li>
             <li onClick={()=>handleSignOut()} className="p-2 hover:bg-[#412ea3c4] cursor-pointer">Logout</li>
             </ul>
