@@ -25,7 +25,6 @@ export const signup = async (req, res) => {
 
     // Hash the password
     const hashPassword = await bcrypt.hash(password, 10);
-
     // Create and save the new user
     const newUser = new User({
       username,
@@ -35,7 +34,7 @@ export const signup = async (req, res) => {
     await newUser.save();
 
     // Generate JWT token
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
@@ -96,7 +95,7 @@ export const signin = async (req, res) => {
         message: "Invalid Creditentials",
       });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id,isAdmin:user.isAdmin }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
     res.cookie("token", token, {
@@ -138,7 +137,7 @@ export const google = async(req,res)=>{
   try {
     const user = await User.findOne({email});
 if(user){
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  const token = jwt.sign({ id: user._id,isAdmin:user.isAdmin }, process.env.JWT_SECRET);
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

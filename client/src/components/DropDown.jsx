@@ -1,22 +1,27 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { signOut } from "../features/users/userSlice";
 function DropDown() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const handleSignOut = async() => {
-        // signout logic
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    async function handleSignout() {
         try {
-            const {data} = await axios.get("/api/auth/signout");
-            if(data.success){
-                localStorage.clear();
-            toast.success(data.message);
+            const { data } = await axios.post("/api/user/signout");
+            if (data.success === false) {
+                return toast.error(data.message);
             }
+            dispatch(signOut());
+            toast.success(data.message);
+            navigate("/signin");
+
         } catch (error) {
-            console.error("Error occurred:", error);
+            console.log("Error occurred:", error);
             toast.error(error.response.data.message);
         }
-    };
+    }
     return (
         <div className="absolute   top-14 right-0 w-80 bg-[#6246EA] shadow-md text-white rounded-md border border-gray-200">
         <div className="flex items-center  gap-4 border-b border-gray-200  p-4">
@@ -33,7 +38,7 @@ function DropDown() {
                 <li className=" p-2 cursor-pointer hover:bg-[#412ea3c4]">Profile</li>
             </Link>
             <li className="p-2 cursor-pointer hover:bg-[#412ea3c4]">Settings</li>
-            <li onClick={()=>handleSignOut()} className="p-2 hover:bg-[#412ea3c4] cursor-pointer">Logout</li>
+            <li onClick={handleSignout} className="p-2 hover:bg-[#412ea3c4] cursor-pointer">Logout</li>
             </ul>
         </div>
         </div>
