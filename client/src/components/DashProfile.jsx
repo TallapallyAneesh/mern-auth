@@ -15,7 +15,7 @@ function DashProfile() {
     const [imageURL, setImageURL] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+console.log(currentUser.user.isAdmin);
     function handleChange(e) {
         if (e.target.id === "username") {
             setUsername(e.target.value);
@@ -69,7 +69,7 @@ function DashProfile() {
     }
 
     return (
-        <div className="flex flex-col gap-3 items-center mx-auto h-screen mt-10 w-3/6">
+        <div className="flex flex-col gap-3 items-center mx-auto h-screen mt-10 w-3/6 ">
             <h1 className="text-3xl">Profile</h1>
             <form className="flex flex-col p-2 w-10/12 gap-6" onSubmit={handleSubmit}>
                 <input type="file" accept="image/*" onChange={handleImage} ref={filePicker} hidden />
@@ -81,6 +81,7 @@ function DashProfile() {
                 <input id="password" type="password" placeholder="password" className="p-3 outline-none border-2 rounded-md border-[#6246EA] text-[#6246EA]" onChange={handleChange} value={password} />
                 <button className="bg-[#6246EA] text-white text-center p-2">Update</button>
             </form>
+        {currentUser.user.isAdmin&&<button onClick={()=>navigate('/create-post')}>Create post</button>}
             <div className="text-red-600 flex p-2 justify-between w-10/12">
                 <span>Delete Account</span>
                 <button onClick={handleSignout}>Sign Out</button>

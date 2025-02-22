@@ -15,6 +15,8 @@ import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import Home2 from "./pages/Home2";
 import DashProfile from "./components/DashProfile";
+import CreatePost from "./components/CreatePost";
+import AdminPrivateRoute from "./components/AdminPrivateRoute";
 function App() {
   return (
     <div className="App ">
@@ -32,13 +34,15 @@ function App() {
 <Route element={<PrivateRoute />}>
 <Route path={"/dashboard"} element={<Dashboard />} />
 </Route>
+<Route  element={<AdminPrivateRoute />} />
+<Route path={"/create-post"} element = {<CreatePost />}/>
           <Route path={"/about"} element={<About />} />
            <Route path={"/profile"} element={<DashProfile />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />
           <Route path="*" element={<div>404</div>} />
           
         </Routes>
-    <Footer />
+    {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );

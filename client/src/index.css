@@ -91,3 +91,23 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.ql-container {
+  height: auto;
+  min-height:200px;
+
+
+}
+.ql-editor {
+font-size: 1.05rem;
+;
+}
+@media (min-width: 640px) {
+  .ql-container {
+    height: auto;
+    min-height:300px;
+  }
+  .ql-editor {
+    font-size: 1.05rem;
+  }
+}
