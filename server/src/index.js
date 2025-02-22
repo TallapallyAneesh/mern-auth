@@ -7,6 +7,7 @@ import connectDB from "../config/database.js";
 
 import userRoutes from "../routes/userRoutes.js";
 import authRoutes from "../routes/authRoutes.js";
+import postRoutes from "../routes/postRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,3 +34,4 @@ connectDB()
 
 app.use("/api/user", userRoutes); //this is just a test route to check if the server is running
 app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
