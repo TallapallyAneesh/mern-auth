@@ -34,7 +34,7 @@ function DropDown() {
         </div>
         <div className="">
             <ul className="p-4 text-md ">
-            <Link to="/profile">
+            <Link to="/dashboard?tab=profile">
                 <li className=" p-2 cursor-pointer hover:bg-[#412ea3c4]">Profile</li>
             </Link>
             <li className="p-2 cursor-pointer hover:bg-[#412ea3c4]">Settings</li>

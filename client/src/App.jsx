@@ -37,7 +37,6 @@ function App() {
 <Route  element={<AdminPrivateRoute />} />
 <Route path={"/create-post"} element = {<CreatePost />}/>
           <Route path={"/about"} element={<About />} />
-           <Route path={"/profile"} element={<DashProfile />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />
           <Route path="*" element={<div>404</div>} />
           

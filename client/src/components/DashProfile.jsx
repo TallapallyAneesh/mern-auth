@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { signOut } from "../features/users/userSlice.js";
 import { useNavigate } from "react-router-dom";
+import DashBar from "./DashBar.jsx";
 
 function DashProfile() {
     const currentUser = useSelector(state => state.user.currentUser);
@@ -86,7 +87,7 @@ console.log(currentUser.user.isAdmin);
                 <span>Delete Account</span>
                 <button onClick={handleSignout}>Sign Out</button>
             </div>
-        </div>
+            </div>
     );
 }
 
